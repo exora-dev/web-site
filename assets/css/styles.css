@@ -18,7 +18,26 @@
 
 .hero-video-section { position: relative; overflow: hidden; }
 .hero-video-wrap { position: absolute; inset: 0; z-index: 0; }
-.hero-video { width: 100%; height: 100%; object-fit: cover; }
+/* Make the YouTube iframe cover the hero area */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 177.78vh;  /* 100 * (16/9) => cover when viewport is taller */
+  height: 100vh;
+  opacity: 0.28;
+  pointer-events: none;
+}
+@media (min-aspect-ratio: 16/9) {
+  .hero-video {
+    width: 100vw;      /* cover when viewport is wider */
+    height: 56.25vw;   /* 100 * (9/16) */
+  }
+}
+@media (min-width: 992px) { /* keep desktop centered */
+  .hero-video { object-position: 50% 50%; }
+}
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44,62,80,0.6), rgba(107,70,193,0.6)); }
 .hero-video-section .container { position: relative; z-index: 1; }
 
@@ -77,6 +96,14 @@ footer { border-top: none !important; }
 #portfolio .btn-group .btn:hover {
   border-color: var(--exora-start);
   color: var(--exora-start);
+}
+
+/* Keep active toggle text readable on hover */
+.service-switch .btn.active:hover,
+#pricing .btn-group .btn.active:hover,
+#portfolio .btn-group .btn.active:hover {
+  color: #fff;
+  border-color: transparent;
 }
 
 /* Headings and text tone */
